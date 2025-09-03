@@ -1,0 +1,630 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(210, 30%, 98%);
+  --foreground: hsl(220, 20%, 12%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(220, 20%, 12%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(220, 20%, 12%);
+  --primary: hsl(220, 85%, 58%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(210, 40%, 96%);
+  --secondary-foreground: hsl(220, 18%, 20%);
+  --muted: hsl(210, 30%, 94%);
+  --muted-foreground: hsl(220, 12%, 48%);
+  --accent: hsl(200, 75%, 65%);
+  --accent-foreground: hsl(220, 20%, 12%);
+  --destructive: hsl(0, 80%, 58%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(210, 25%, 90%);
+  --input: hsl(210, 30%, 97%);
+  --ring: hsl(220, 85%, 58%);
+  --success: hsl(120, 65%, 48%);
+  --warning: hsl(45, 90%, 58%);
+  --info: hsl(200, 85%, 58%);
+  --radius: 14px;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Georgia', 'Times New Roman', serif;
+  --font-mono: 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', monospace;
+  
+  /* Enhanced gradients and shadows */
+  --gradient-primary: linear-gradient(135deg, hsl(220, 85%, 58%) 0%, hsl(240, 80%, 65%) 100%);
+  --gradient-secondary: linear-gradient(135deg, hsl(210, 40%, 96%) 0%, hsl(220, 30%, 92%) 100%);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.dark {
+  --background: hsl(220, 25%, 6%);
+  --foreground: hsl(210, 20%, 92%);
+  --card: hsl(220, 20%, 10%);
+  --card-foreground: hsl(210, 20%, 88%);
+  --popover: hsl(220, 20%, 10%);
+  --popover-foreground: hsl(210, 20%, 92%);
+  --primary: hsl(220, 85%, 65%);
+  --primary-foreground: hsl(220, 25%, 6%);
+  --secondary: hsl(220, 20%, 15%);
+  --secondary-foreground: hsl(210, 18%, 78%);
+  --muted: hsl(220, 20%, 12%);
+  --muted-foreground: hsl(220, 15%, 58%);
+  --accent: hsl(200, 80%, 70%);
+  --accent-foreground: hsl(220, 25%, 6%);
+  --destructive: hsl(0, 85%, 65%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+  --border: hsl(220, 20%, 18%);
+  --input: hsl(220, 20%, 15%);
+  --ring: hsl(220, 85%, 65%);
+  --success: hsl(120, 70%, 55%);
+  --warning: hsl(45, 95%, 65%);
+  --info: hsl(200, 90%, 65%);
+  
+  /* Dark mode gradients and shadows */
+  --gradient-primary: linear-gradient(135deg, hsl(220, 85%, 65%) 0%, hsl(240, 80%, 70%) 100%);
+  --gradient-secondary: linear-gradient(135deg, hsl(220, 20%, 15%) 0%, hsl(220, 25%, 12%) 100%);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    background: linear-gradient(135deg, hsl(210, 30%, 98%) 0%, hsl(220, 25%, 95%) 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "cv03", "cv04", "cv11";
+    /* Mobile-first touch optimizations */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: -0.01em;
+  }
+
+  .dark body {
+    background: linear-gradient(135deg, hsl(220, 25%, 6%) 0%, hsl(220, 20%, 8%) 100%);
+    background-attachment: fixed;
+  }
+  
+  /* Mobile touch improvements */
+  button, .cursor-pointer, [role="button"] {
+    touch-action: manipulation;
+    min-height: 44px; /* iOS recommended touch target */
+  }
+  
+  /* Smooth transitions for better mobile feel */
+  * {
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  }
+  
+  /* Better mobile scrolling */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Focus styles for better accessibility */
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+  
+  /* Enhanced typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight;
+    font-feature-settings: "kern", "liga", "clig", "calt";
+  }
+  
+  h1 {
+    @apply text-3xl font-bold;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    @apply text-2xl font-semibold;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+  }
+  
+  h3 {
+    @apply text-xl font-semibold;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+  
+  h4 {
+    @apply text-lg font-medium;
+    letter-spacing: -0.005em;
+    line-height: 1.4;
+  }
+  
+  h5, h6 {
+    @apply text-base font-medium;
+    line-height: 1.5;
+  }
+  
+  p, span, div {
+    line-height: 1.6;
+    letter-spacing: -0.003em;
+  }
+  
+  .text-small {
+    @apply text-sm;
+    line-height: 1.5;
+  }
+  
+  .text-xs {
+    line-height: 1.4;
+  }
+}
+
+@layer components {
+  .box-expanded {
+    @apply fixed inset-0 z-50 bg-background overflow-y-auto;
+    backdrop-filter: blur(20px);
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+
+  .calendar-day {
+    @apply aspect-square flex items-center justify-center rounded-xl cursor-pointer transition-all duration-300;
+    min-height: 44px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .calendar-day:hover {
+    @apply bg-primary/10;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .calendar-day.selected {
+    background: var(--gradient-primary);
+    @apply text-primary-foreground border-primary;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .calendar-day.today {
+    @apply bg-accent text-accent-foreground border-accent;
+    box-shadow: var(--shadow-md);
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Enhanced premium card styling */
+  .mobile-card {
+    @apply bg-card rounded-2xl border border-border;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .dark .mobile-card {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(12px);
+  }
+
+  .mobile-card:hover, .mobile-card:active {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+  }
+
+  /* Priority color dots with enhanced styling */
+  .priority-dot {
+    @apply w-3 h-3 rounded-full flex-shrink-0;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+  }
+
+  .priority-high { 
+    background: linear-gradient(135deg, hsl(0, 85%, 65%) 0%, hsl(15, 80%, 60%) 100%);
+  }
+  .priority-medium { 
+    background: linear-gradient(135deg, hsl(45, 90%, 65%) 0%, hsl(55, 85%, 60%) 100%);
+  }
+  .priority-low { 
+    background: linear-gradient(135deg, hsl(120, 65%, 55%) 0%, hsl(135, 60%, 50%) 100%);
+  }
+
+  /* Premium button styling */
+  .mobile-button {
+    @apply px-6 py-3 rounded-xl font-medium transition-all duration-300;
+    min-height: 44px;
+    touch-action: manipulation;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid transparent;
+  }
+
+  .mobile-button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .mobile-button:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* Enhanced tab styling */
+  .mobile-tabs {
+    @apply grid w-full;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 6px;
+    padding: 4px;
+    background: var(--muted);
+    border-radius: 16px;
+  }
+
+  .mobile-tab {
+    @apply px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+  }
+
+  .mobile-tab.active {
+    background: var(--card);
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-1px);
+  }
+
+  /* Glass morphism effects */
+  .glass-card {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .glass-card {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Enhanced form input styles */
+  .form-input {
+    @apply border border-input bg-background px-4 py-3 text-sm rounded-xl transition-all duration-300;
+    min-height: 48px;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(8px);
+  }
+
+  .form-input:focus {
+    @apply outline-none border-primary ring-2 ring-primary/20;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .form-input:hover {
+    border-color: var(--border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .form-input.error {
+    @apply border-destructive ring-2 ring-red-200;
+    box-shadow: var(--shadow-md);
+  }
+
+  .form-input.success {
+    @apply border-green-500 ring-2 ring-green-200;
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Enhanced button variants */
+  .btn-primary {
+    background: var(--gradient-primary);
+    @apply text-primary-foreground border-0 rounded-xl font-medium px-6 py-3 transition-all duration-300;
+    box-shadow: var(--shadow-sm);
+    min-height: 48px;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground border border-border rounded-xl font-medium px-6 py-3 transition-all duration-300;
+    box-shadow: var(--shadow-sm);
+    min-height: 48px;
+    backdrop-filter: blur(8px);
+  }
+
+  .btn-secondary:hover {
+    @apply bg-secondary/80;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Mobile touch optimization */
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    touch-action: manipulation;
+  }
+
+  /* Loading states */
+  .loading-shimmer {
+    background: linear-gradient(90deg, var(--muted) 25%, var(--border) 50%, var(--muted) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 8px;
+  }
+
+  /* Status indicators */
+  .status-success {
+    @apply bg-success/10 text-success border border-success/20 rounded-lg px-3 py-2;
+  }
+
+  .status-warning {
+    @apply bg-warning/10 text-warning-foreground border border-warning/20 rounded-lg px-3 py-2;
+  }
+
+  .status-error {
+    @apply bg-destructive/10 text-destructive border border-destructive/20 rounded-lg px-3 py-2;
+  }
+
+  .status-info {
+    @apply bg-info/10 text-info-foreground border border-info/20 rounded-lg px-3 py-2;
+  }
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Loading skeleton animation */
+.skeleton {
+  background: linear-gradient(90deg, var(--muted) 25%, var(--border) 50%, var(--muted) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Custom scrollbar styles - very thin */
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 1px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* Firefox scrollbar styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+/* Beautiful Tab System */
+@layer components {
+  .tab-container {
+    @apply flex items-center gap-3 mb-6 overflow-x-auto pb-2;
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.2) transparent;
+  }
+  
+  .tab-button {
+    @apply relative flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap 
+           transition-all duration-200 select-none;
+    background: linear-gradient(135deg, hsl(var(--muted)) 0%, hsl(var(--muted) / 0.8) 100%);
+    color: hsl(var(--muted-foreground));
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border: 1px solid hsl(var(--border) / 0.5);
+    min-height: 42px;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  .tab-button:hover {
+    @apply scale-[1.02];
+    background: linear-gradient(135deg, hsl(var(--muted) / 0.9) 0%, hsl(var(--muted) / 0.7) 100%);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    border-color: hsl(var(--border) / 0.8);
+  }
+  
+  .tab-button.active {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.9) 100%);
+    color: hsl(var(--primary-foreground));
+    box-shadow: 0 4px 12px hsl(var(--primary) / 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-color: hsl(var(--primary) / 0.3);
+  }
+  
+  .tab-button.active:hover {
+    @apply scale-[1.02];
+    box-shadow: 0 6px 16px hsl(var(--primary) / 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+  
+  .tab-color-indicator {
+    @apply w-3 h-3 rounded-full border border-white/20 shadow-sm;
+  }
+  
+  .tab-add-button {
+    @apply flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium whitespace-nowrap 
+           transition-all duration-200 min-h-[42px] border border-dashed;
+    background: linear-gradient(135deg, hsl(var(--secondary)) 0%, hsl(var(--secondary) / 0.8) 100%);
+    color: hsl(var(--secondary-foreground));
+    border-color: hsl(var(--border));
+  }
+  
+  .tab-add-button:hover {
+    @apply scale-[1.02];
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--primary) / 0.05) 100%);
+    border-color: hsl(var(--primary) / 0.3);
+    color: hsl(var(--primary));
+    box-shadow: 0 2px 6px hsl(var(--primary) / 0.1);
+  }
+  
+  .tab-rename-input {
+    @apply px-3 py-2 text-sm border rounded-xl focus:border-primary focus:ring-2 
+           transition-all duration-200 min-w-[120px];
+    background: hsl(var(--background) / 0.95);
+    backdrop-filter: blur(4px);
+    border-color: hsl(var(--primary) / 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tab-rename-input:focus {
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+  }
+  
+  /* Enhanced overlay styling */
+  .tab-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-6;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.2s ease-out;
+  }
+  
+  .tab-overlay-content {
+    @apply rounded-2xl shadow-2xl border p-6 w-full max-w-sm;
+    background: hsl(var(--card) / 0.95);
+    backdrop-filter: blur(4px);
+    border-color: hsl(var(--border) / 0.5);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05);
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .tab-overlay-button {
+    @apply w-full flex items-center justify-center gap-3 p-4 rounded-xl font-medium 
+           transition-all duration-200 min-h-[50px];
+  }
+  
+  .tab-overlay-button.rename {
+    @apply text-primary border;
+    background: hsl(var(--primary) / 0.1);
+    border-color: hsl(var(--primary) / 0.2);
+    box-shadow: 0 2px 8px hsl(var(--primary) / 0.1);
+  }
+  
+  .tab-overlay-button.rename:hover {
+    background: hsl(var(--primary) / 0.2);
+  }
+  
+  .tab-overlay-button.delete {
+    @apply text-destructive border;
+    background: hsl(var(--destructive) / 0.1);
+    border-color: hsl(var(--destructive) / 0.2);
+    box-shadow: 0 2px 8px hsl(var(--destructive) / 0.1);
+  }
+  
+  .tab-overlay-button.delete:hover {
+    background: hsl(var(--destructive) / 0.2);
+  }
+  
+  .tab-overlay-button.cancel {
+    @apply text-muted-foreground border;
+    background: hsl(var(--muted) / 0.8);
+    border-color: hsl(var(--border) / 0.5);
+  }
+  
+  .tab-overlay-button.cancel:hover {
+    background: hsl(var(--muted));
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px) scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+    }
+  }
+}
