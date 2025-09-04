@@ -3,22 +3,19 @@ import fs from "fs";
 import path from "path";
 
 export function serveStatic(app: Express) {
-  const clientPath = path.resolve(import.meta.dirname, "..", "client");
+  const publicPath = path.resolve(import.meta.dirname, "..", "dist", "public");
 
-  if (!fs.existsSync(clientPath)) {
+  if (!fs.existsSync(publicPath)) {
     throw new Error(
-      `Could not find the client directory: ${clientPath}`,
+      `Could not find the public directory: ${publicPath}. Make sure to run the build command first.`
     );
   }
 
-  // Serve static files from client directory
-  app.use(express.static(clientPath));
-  
-  // Serve src files for React imports
-  app.use('/src', express.static(path.join(clientPath, 'src')));
+  // Serve static files from the public directory
+  app.use(express.static(publicPath));
 
   // Handle React app routes - serve index.html for all non-API routes
   app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(clientPath, "index.html"));
+    res.sendFile(path.resolve(publicPath, "index.html"));
   });
 }
